@@ -58,3 +58,6 @@ gem 'momentjs-rails'
 
 # deploy to heroku
 gem "heroku"
+
+# to see more log
+gem "rails_12factor"
