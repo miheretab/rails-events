@@ -1,0 +1,68 @@
+<h1>Event Calendar</h1>
+
+<div id='calendar'></div>
+<script>
+var events = <%= @events.html_safe %>;
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+
+    var calendar = $('#calendar').fullCalendar({
+		header: {
+			left: 'title', //,today
+			center: 'prev, next, today',
+			right: 'month, agendaWeek, agenDay' //month, agendaDay, 
+		},
+		selectable: true,
+		selectHelper: true,
+		select: function(start, end, allDay) {
+			var title = prompt('Event Title:');
+			allDay = start.format('HH:mm:ss') == '00:00:00' && end.format('HH:mm:ss') == '00:00:00' ? true : false;
+			if (title) {
+				$.ajax({
+					type: 'POST',
+					data: {Event: {
+						title: title, 
+						start: start.format('YYYY-MM-DD HH:mm:ss'),
+						end: end.format('YYYY-MM-DD HH:mm:ss'),
+						allDay: allDay
+					}},
+					url: "/events/create",
+					success:function(response){
+						console.log(response);
+					}
+				});
+				calendar.fullCalendar('renderEvent',
+					{
+						title: title,
+						start: start,
+						end: end,
+						allDay: allDay
+					},
+					true // make the event "stick"
+				);
+			}
+			calendar.fullCalendar('unselect');
+		},
+		
+		editable: false,
+		events: events,
+        eventClick: function(event, element, view) {
+            var r=confirm("Delete " + event.title);
+            if (r===true) {
+				$.ajax({
+					type: 'POST',
+					data: {id: event.id},
+					url: "/events/destroy",
+					success:function(response){
+						console.log(response);
+					}
+				});			
+				calendar.fullCalendar('removeEvents', event.id);
+			}
+        }
+    })
+
+});
+</script>
+

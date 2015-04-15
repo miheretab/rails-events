@@ -37,3 +37,10 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
+
+# for windows 7
+gem 'coffee-script-source', '1.8.0'
+
+# for calendar plugin
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
