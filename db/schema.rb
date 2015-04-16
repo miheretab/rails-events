@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150415132758) do
+ActiveRecord::Schema.define(version: 20150416091021) do
 
   create_table "events", force: true do |t|
     t.string   "title"
-    t.datetime "start"
-    t.datetime "end"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "allDay",     default: true
+    t.boolean  "all_day",    default: true
   end
 
 end

@@ -2,7 +2,7 @@
 
 <div id='calendar'></div>
 <script>
-var events = <%= @events.html_safe %>;
+var events = <%= @events.to_json.html_safe %>;
 $(document).ready(function() {
 
     // page is now ready, initialize the calendar...
@@ -23,9 +23,9 @@ $(document).ready(function() {
 					type: 'POST',
 					data: {Event: {
 						title: title, 
-						start: start.format('YYYY-MM-DD HH:mm:ss'),
-						end: end.format('YYYY-MM-DD HH:mm:ss'),
-						allDay: allDay
+						start_time: start.format('YYYY-MM-DD HH:mm:ss'),
+						end_time: end.format('YYYY-MM-DD HH:mm:ss'),
+						all_day: allDay
 					}},
 					url: "/events/create",
 					success:function(response){
